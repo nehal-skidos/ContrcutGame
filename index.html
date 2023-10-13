@@ -1,44 +1,79 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>New project</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Tutorial Screen</title>
+    <link href="css/skidos.css" rel="stylesheet" />
 
-<meta name="generator" content="Construct 3">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/plyr.css" />
 
-	<link rel="manifest" href="appmanifest.json">
-	<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
-	<link rel="apple-touch-icon" sizes="256x256" href="icons/icon-256.png">
-	<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
-	<link rel="icon" type="image/png" href="icons/icon-512.png">
+    <link rel="stylesheet" href="css/styles.css" />
 
-<link rel="stylesheet" href="style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="close-btn-area jsCloseBtn">
+      <button class="tutorial-close-btn"></button>
+    </div>
+    <div class="player-container active">
+      <div class="player">
+        <div class="video-block">
+          <video id="skidos_player" controls crossorigin playsinline></video>
+        </div>
+      </div>
+    </div>
 
-</head>
-<body>
-<div id="fb-root"></div>
+    <script src="js/font-awesome.js"></script>
+    <script src="js/polyfill.min.js"></script>
+    <script src="js/plyr.min.js"></script>
+    <script src="js/hls.js"></script>
 
-	<noscript>
-		<div id="notSupportedWrap">
-			<h2 id="notSupportedTitle">This content requires JavaScript</h2>
-			<p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
-		</div>
-	</noscript>
-	<script src="scripts/supportcheck.js"></script>
-	<script src="scripts/offlineclient.js" type="module"></script>
-	<script src="scripts/main.js?v=7687" type="module"></script>
-	<script src="scripts/register-sw.js" type="module"></script>
-</body>
-<script>
-	
-// 	const event = new Event('build');
-// 	function myFunc(data){
+    <script>
+      const sandbox = true;
+      const unityMode = true;
+      let preDuration = null;
+      let videoLoadInterval;
+      let videoEndInterval;
+      let isVideoEnded = false;
+      const video = document.querySelector("#skidos_player");
 
-// 		window.data = data;
-		
-// 		window.dispatchEvent(event);
+      const controls = [];
+      const player = new Plyr(video, {
+        autoplay: true,
+        displayDuration: true,
+        controls,
+        fullscreen: { enabled: false },
+        ratio: "16:9",
+      });
 
-// 	}
-</script>
+      onloadFunctions();
+      function onloadFunctions() {
+        setTimeout(function () {
+          window.location.href =
+            "skidoswebview://PlayingVideoTutorial?EventName=learning_tutorial_playback_started&webmodule=tutorialvideo";
+        }, 700);
+        player.play();
+        player.muted = false;
+      }
+      /* ... code ... */
+      player.on("ended", function () {
+        console.log("video ended");
+        isVideoEnded = true;
+        window.location.href =
+          "skidoswebview://VideoTutorialEnded?EventName=learning_tutorial_playback_completed&webmodule=tutorialvideo";
+      });
+      $(".jsCloseBtn").click(function () {
+        window.location.href =
+          "skidoswebview://VideoTutorialEnded?EventName=LearningTutorialCrossBtnClk&closebtn=true&webmodule=tutorialvideo";
+      });
+      //unity-video - bridge;
+    </script>
+    <script src="js/sandbox.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
 </html>

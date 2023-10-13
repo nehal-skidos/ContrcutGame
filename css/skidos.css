@@ -1,0 +1,49 @@
+:root {
+  --plyr-control-icon-size: 24px;
+  --plyr-color-main: #f76000;
+  --plyr-range-fill-background: #00c6a3;
+  --plyr-range-thumb-background: #f76000;
+  --plyr-range-thumb-height: 20px;
+  --plyr-range-thumb-shadow: 0 1px 1px rgba(215, 26, 18, 0.15),
+    0 0 0 1px rgba(215, 26, 18, 0.2);
+}
+
+.skidos-video-title {
+  padding: 08px;
+  padding-bottom: 4px;
+  opacity: 0;
+  position: absolute;
+}
+.skidos-video-title h2 {
+  font-size: 0.98em;
+  font-family: "QuickSand";
+  margin-left: 35px;
+  line-height: 1.25em;
+  color: #fff;
+}
+.skidos-video-title.active {
+  width: 100%;
+  top: 0;
+  background: #000;
+  display: block;
+  opacity: 1;
+  transition: opacity 2s;
+  z-index: 9;
+}
+.skidos-video-title span {
+  content: " ";
+  background: #f66000 url(../icons/left.png);
+  width: 23px;
+  height: 22px;
+  background-repeat: no-repeat;
+  top: 8px;
+  padding: 5px;
+  border-radius: 35%;
+  background-size: 50%;
+  background-position: 6px;
+  cursor: pointer;
+  position: absolute;
+}
+.player {
+  position: relative;
+}
