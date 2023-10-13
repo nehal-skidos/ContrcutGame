@@ -401,7 +401,7 @@ h1 {
   #skidos_player {
     width: 100% ;
     margin: auto;
-    margin-top: 0px;
+    margin-top: 10px;
   }
   /* player controlbar transparent */
   .skidos.vjs-paused .skidos-video-title,
